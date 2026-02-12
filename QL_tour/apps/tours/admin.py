@@ -5,6 +5,7 @@ from .models.tours import Tour
 from .models.tour_schedules import TourSchedule
 from .models.tour_stop import TourStop
 from .models.tour_route import TourRoute
+from .models.RouteStop import RouteStop
 from django.contrib.gis.geos import Point
 
 @admin.register(Category)
@@ -41,8 +42,26 @@ class TourSchedulesAdmin(admin.ModelAdmin):
 class TourRoutesAdmin(admin.ModelAdmin):
     list_display = [field.name for field in TourRoute._meta.fields]
 
+    exclude = ('route',)
+
 @admin.register(TourStop)
 class TourStopsAdmin(admin.ModelAdmin):
+    form = TourAdminForm
     list_display = [field.name for field in TourStop._meta.fields]
 
     search_fields = ('name', 'latitude', 'longitude')
+
+    exclude = ('location',)
+
+    def save_model(self, request, obj, form, change):
+        lat = form.cleaned_data.get('lat_input')
+        lon = form.cleaned_data.get('lon_input')
+
+        if lat is not None and lon is not None:
+            obj.location = Point(lon, lat)
+
+        super().save_model(request, obj, form, change)
+
+@admin.register(RouteStop)
+class RoutesStopAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in RouteStop._meta.fields]

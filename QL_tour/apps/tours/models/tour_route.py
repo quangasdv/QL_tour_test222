@@ -8,16 +8,11 @@ class TourRoute(models.Model):
         Tour,
         on_delete=models.CASCADE
     )
-    stop = models.ForeignKey(
-        TourStop, 
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
-    )
-    route = models.LineStringField(
-        geography=True,
-        srid=4326
-    )
+
+    route = models.LineStringField(null=True, blank=True)
+    name = models.CharField(max_length=255)
+    distance_km = models.FloatField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Route for {self.tour.title}"
+        return f"{self.name}"

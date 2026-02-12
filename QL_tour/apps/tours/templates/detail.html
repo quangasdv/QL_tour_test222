@@ -1,4 +1,12 @@
 <!doctype html>
+<head>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
 {% extends 'share_layout.html' %} {% load static %} {% block content %}
 <div class="container mt-5">
   <div class="row">
@@ -31,5 +39,16 @@
       </ul>
     </div>
   </div>
+
+  <div
+    id="map"
+    style="
+      height: 550px;
+      width: 100%;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+    "
+  ></div>
+  <script src="{% static 'js/map.js' %}"></script>
 </div>
 {% endblock %}

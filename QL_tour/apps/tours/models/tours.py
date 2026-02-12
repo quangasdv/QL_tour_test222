@@ -7,6 +7,9 @@ class Status(models.TextChoices):
     ACTIVE = 'ACTIVE', 'Kích hoạt'
     HIDDEN = 'HIDDEN', 'Ẩn'
 
+def user_avatar_path(instance, filename):
+    return f"avatars/user_{instance.id}/{filename}"
+
 class Tour(models.Model):
     title = models.CharField()
     description = models.TextField()
@@ -18,7 +21,7 @@ class Tour(models.Model):
         geography=True,  
         srid=4326         
     )
-    thumbnail = models.ImageField(upload_to='thumbnails/')
+    thumbnail = models.ImageField(upload_to='thumbnails/', default='avatars/default.jpg', blank=True)
     status = models.CharField(choices=Status.choices, default=Status.ACTIVE)
     create_at = models.DateTimeField(auto_now_add=True)
 
