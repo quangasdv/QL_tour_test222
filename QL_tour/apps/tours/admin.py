@@ -5,7 +5,7 @@ from .models.tours import Tour
 from .models.tour_schedules import TourSchedule
 from .models.tour_stop import TourStop
 from .models.tour_route import TourRoute
-from .models.RouteStop import RouteStop
+from .models.route_stop import RouteStop
 from django.contrib.gis.geos import Point
 
 @admin.register(Category)

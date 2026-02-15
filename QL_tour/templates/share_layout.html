@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'leaflet/leaflet.css' %}" />
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'leaflet/leaflet.js' %}"></script>
 
     <title>{% block title %}Tourify{% endblock %}</title>
   </head>
