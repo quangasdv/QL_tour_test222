@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from .models.tour_route import TourRoute
 from .models.route_stop import RouteStop
 from .models.tour_stop import TourStop
-from .serializer import TourRouteMapSerializer
+from .serializers import TourRouteMapSerializer
 
 class TourMapAPI(APIView):
     def get(self, request, id):

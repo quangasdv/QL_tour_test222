@@ -1,5 +1,6 @@
 from django.db import models
 from .categories import Category
+from .country import Country
 from django.contrib.gis.db import models
 
 class Status(models.TextChoices):
@@ -17,6 +18,7 @@ class Tour(models.Model):
     duration_days = models.DateTimeField()
     max_people = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True)
     location = models.PointField(
         geography=True,  
         srid=4326         

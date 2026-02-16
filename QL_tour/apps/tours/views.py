@@ -1,8 +1,15 @@
-from django.http import HttpResponse
-from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404, render
+from rest_framework.decorators import api_view
 from .models import Tour
+from .serializers import TourSerializer
+from rest_framework.response import Response
 
 def tour_detail(request, id):
     tour = get_object_or_404(Tour, pk=id)
     return render(request, 'detail.html', {'tour': tour})
+
+@api_view(['GET'])
+def tours(request):
+    tours = Tour.objects.all()
+    serializer = TourSerializer(tours, many=True)
+    return Response(serializer.data) 

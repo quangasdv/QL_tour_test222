@@ -3,45 +3,42 @@
 {% extends 'share_layout.html' %} {% load static %} {% block content %}
 <div class="container mt-5">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
       <img
         src="{{ tour.thumbnail.url }}"
         alt="{{ tour.title }}"
         class="img-fluid rounded"
       />
     </div>
-    <div class="col-md-6">
-      <h1 class="display-4">{{ tour.title }}</h1>
-      <p class="lead">{{ tour.description }}</p>
+    <div class="col-md-5">
+      <h1 class="display-6">{{ tour.title }}</h1>
+      <p class="lead fs-6">{{ tour.description }}</p>
       <hr />
       <p><strong>Price:</strong> {{ tour.price }} Đồng</p>
-      <p><strong>Duration:</strong> {{ tour.duration }} days</p>
-      <a href="/bookings/create/{{ tour.id }}" class="btn btn-primary btn-lg"
+      <p><strong>Category:</strong> {{ tour.category }}</p>
+      <p><strong>Country:</strong> {{ tour.country }}</p>
+      <p><strong>Duration:</strong> {{ tour.duration_days }} days</p>
+      <p><strong>Quantity:</strong> {{tour.max_people}}</p>
+      <a
+        href="/bookings/create/{{ tour.id }}"
+        class="btn btn-primary btn-sm text-uppercase fw-bolder"
         >Book Now</a
       >
     </div>
-  </div>
 
-  <div class="row mt-5">
-    <div class="col-12">
+    <div class="col-md-4">
       <h2>Tour Highlights</h2>
-      <ul>
-        {% for highlight in tour.highlights %}
-        <li>{{ highlight }}</li>
-        {% endfor %}
-      </ul>
+      <div
+        id="map"
+        style="
+          height: 550px;
+          width: 100%;
+          border: 2px solid #007bff;
+          border-radius: 8px;
+        "
+      ></div>
+      <script src="{% static 'js/map.js' %}"></script>
     </div>
   </div>
-
-  <div
-    id="map"
-    style="
-      height: 550px;
-      width: 100%;
-      border: 2px solid #007bff;
-      border-radius: 8px;
-    "
-  ></div>
-  <script src="{% static 'js/map.js' %}"></script>
 </div>
 {% endblock %}

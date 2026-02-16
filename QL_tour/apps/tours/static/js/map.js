@@ -6,26 +6,42 @@ const pathSegments = window.location.pathname.split("/");
 const tourId = pathSegments[pathSegments.length - 1];
 
 fetch(`../route-map/${tourId}`)
-  .then((response) => response.json())
+  .then((res) => res.json())
   .then((data) => {
-    console.log(data);
-    L.geoJSON(data, {
-      // Tùy chỉnh hiển thị cho từng loại dữ liệu
+    const geojsonLayer = L.geoJSON(data, {
+      // Style cho LineString
       style: function (feature) {
         if (feature.properties.type === "route") {
-          return { color: "red", weight: 5, opacity: 0.7 };
+          return {
+            color: "red",
+            weight: 5,
+            opacity: 0.7,
+          };
         }
       },
-      // Tạo marker và popup cho các điểm (Point)
+
+      // BẮT BUỘC cho Point
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng);
+      },
+
+      // Popup
       onEachFeature: function (feature, layer) {
-        if (feature.properties && feature.properties.name) {
-          layer.bindPopup(
-            `<b>${feature.properties.name}</b><br>Loại: ${feature.properties.type}`,
-          );
+        if (feature.geometry.type === "Point") {
+          layer.bindPopup(`
+            <b>${feature.properties.name}</b><br>
+            Order: ${feature.properties.order}
+          `);
+        }
+
+        if (feature.geometry.type === "LineString") {
+          layer.bindPopup(`
+            <b>${feature.properties.name}</b><br>
+            Distance: ${feature.properties.distance_km.toFixed(2)} km
+          `);
         }
       },
     }).addTo(map);
 
-    const geojsonLayer = L.geoJSON(data).addTo(map);
     map.fitBounds(geojsonLayer.getBounds());
   });

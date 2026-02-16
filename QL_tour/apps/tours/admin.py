@@ -6,6 +6,7 @@ from .models.tour_schedules import TourSchedule
 from .models.tour_stop import TourStop
 from .models.tour_route import TourRoute
 from .models.route_stop import RouteStop
+from .models.country import Country
 from django.contrib.gis.geos import Point
 
 @admin.register(Category)
@@ -37,6 +38,10 @@ class TourSchedulesAdmin(admin.ModelAdmin):
     list_display = [field.name for field in TourSchedule._meta.fields]
 
     search_fields = ('name', 'latitude', 'longitude')
+
+@admin.register(Country)
+class CountriesAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Country._meta.fields]
 
 @admin.register(TourRoute)
 class TourRoutesAdmin(admin.ModelAdmin):
