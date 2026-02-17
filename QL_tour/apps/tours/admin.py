@@ -7,6 +7,7 @@ from .models.tour_stop import TourStop
 from .models.tour_route import TourRoute
 from .models.route_stop import RouteStop
 from .models.country import Country
+from .models.continent import Continent
 from django.contrib.gis.geos import Point
 
 @admin.register(Category)
@@ -17,21 +18,9 @@ class CategoriesAdmin(admin.ModelAdmin):
 
 @admin.register(Tour)
 class ToursAdmin(admin.ModelAdmin):
-    form = TourAdminForm
     list_display = [field.name for field in Tour._meta.fields]
 
     search_fields = ('title', 'price', 'category__name')
-
-    exclude = ('location',)
-
-    def save_model(self, request, obj, form, change):
-        lat = form.cleaned_data.get('lat_input')
-        lon = form.cleaned_data.get('lon_input')
-        
-        if lat is not None and lon is not None:
-            obj.location = Point(lon, lat)
-            
-        super().save_model(request, obj, form, change)
 
 @admin.register(TourSchedule)
 class TourSchedulesAdmin(admin.ModelAdmin):
@@ -43,11 +32,15 @@ class TourSchedulesAdmin(admin.ModelAdmin):
 class CountriesAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Country._meta.fields]
 
+@admin.register(Continent)
+class ContinentsAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Continent._meta.fields]
+
 @admin.register(TourRoute)
 class TourRoutesAdmin(admin.ModelAdmin):
     list_display = [field.name for field in TourRoute._meta.fields]
 
-    exclude = ('route',)
+    exclude = ('route', 'distance_km')
 
 @admin.register(TourStop)
 class TourStopsAdmin(admin.ModelAdmin):

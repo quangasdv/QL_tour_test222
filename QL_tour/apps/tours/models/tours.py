@@ -19,10 +19,6 @@ class Tour(models.Model):
     max_people = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True)
-    location = models.PointField(
-        geography=True,  
-        srid=4326         
-    )
     thumbnail = models.ImageField(upload_to='thumbnails/', default='avatars/default.jpg', blank=True)
     status = models.CharField(choices=Status.choices, default=Status.ACTIVE)
     create_at = models.DateTimeField(auto_now_add=True)
