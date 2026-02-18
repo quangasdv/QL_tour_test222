@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('apps.home.urls')),
     path('tours/', include('apps.tours.urls')),
     path('gis/', include('apps.gis_tool.urls')),
+    path('search/', include('apps.search.urls'))
 ]
 
 if settings.DEBUG:

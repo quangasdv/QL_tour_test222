@@ -12,7 +12,7 @@ class TourRouteMapSerializer(serializers.Serializer):
 
         features.append({
             "type": "Feature",
-            "geometry": json.loads(obj.route.geojson),
+            "geometry": "" if obj.route == None else json.loads(obj.route.geojson),
             "properties": {
                 "type": "route",
                 "name": obj.name,
@@ -28,7 +28,8 @@ class TourRouteMapSerializer(serializers.Serializer):
                 "properties": {
                     "type": "stop",
                     "name": stop.name,
-                    "order": rs.order
+                    "order": rs.order,
+                    "description": stop.description
                 }
             })
 

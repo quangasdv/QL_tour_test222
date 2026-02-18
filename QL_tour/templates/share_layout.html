@@ -44,7 +44,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Tours</a>
+                <a class="nav-link text-white" href="#">Tour du lịch</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'show_map' %}"
@@ -75,6 +75,7 @@
       </nav>
     </header>
 
+    <div>{% block search %} {% endblock %}</div>
     <div>{% block content %} {% endblock %}</div>
 
     <footer class="bg-primary text-white text-center py-3 mt-5">

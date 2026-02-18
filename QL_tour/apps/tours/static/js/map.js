@@ -8,6 +8,7 @@ const tourId = pathSegments[pathSegments.length - 1];
 fetch(`../route-map/${tourId}`)
   .then((res) => res.json())
   .then((data) => {
+    console.log(data);
     const geojsonLayer = L.geoJSON(data, {
       // Style cho LineString
       style: function (feature) {
@@ -30,7 +31,8 @@ fetch(`../route-map/${tourId}`)
         if (feature.geometry.type === "Point") {
           layer.bindPopup(`
             <b>${feature.properties.name}</b><br>
-            Order: ${feature.properties.order}
+            Order: ${feature.properties.order}<br>
+            Description: ${feature.properties.description}
           `);
         }
 
