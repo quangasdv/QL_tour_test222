@@ -1,32 +1,54 @@
 {% extends 'share_layout.html' %} 
 {% block title %}Home{% endblock %} 
 
+{% load static %}
 {% block search %}
-<div class="container mt-3">
-  <input type="text" class="form-control" placeholder="Search tours...">
+<form class="container mt-3" method="post" id="search-form">
+  {% csrf_token %}
+  <input
+    type="text"
+    class="form-control"
+    name="search"
+    placeholder="Search tours..."
+  />
 
-  <select class="form-select" aria-label="Default select example">
-    <option selected>Loại tour...</option>
+  <select
+    class="form-select"
+    aria-label="Default select example"
+    name="category"
+  >
+    <option value="" selected>Loại tour ...</option>
     {% for category in categories %}
-    <option value="{{category.id}}">{{category.name}}</option>
+    <option value="{{category.name}}">{{category.name}}</option>
     {% endfor %}
   </select>
 
-  <select class="form-select" aria-label="Default select example">
-      <option selected>Quốc gia...</option>
-      {% for country in countries %}
-      <option value="{{country.id}}">{{country.name}}</option>
-      {% endfor %}
+  <select
+    class="form-select"
+    aria-label="Default select example"
+    name="country"
+  >
+    <option value="" selected>Quốc gia ...</option>
+    {% for country in countries %}
+    <option value="{{country.name}}">{{country.name}}</option>
+    {% endfor %}
   </select>
 
-  <select class="form-select" aria-label="Default select example">
-      <option selected>Châu lục...</option>
-      {% for continent in continents %}
-      <option value="{{continent.id}}">{{continent.name}}</option>
-      {% endfor %}
+  <select
+    class="form-select"
+    aria-label="Default select example"
+    name="continent"
+  >
+    <option value="" selected>Châu lục ...</option>
+    {% for continent in continents %}
+    <option value="{{continent.name}}">{{continent.name}}</option>
+    {% endfor %}
   </select>
-</div>
-{% endblock %}
+
+  <button>Search</button>
+</form>
+{% endblock search %}
+
 
 {% block content %}
 <div class="container mt-5">
@@ -51,5 +73,6 @@
     </div>
     {% endfor %}
   </div>
+  <script src="{% static 'home/js/api.js' %}"></script>
 </div>
 {% endblock content %}
