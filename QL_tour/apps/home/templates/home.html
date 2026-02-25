@@ -3,12 +3,12 @@
 
 {% load static %}
 {% block search %}
-<form class="container mt-3" method="post" id="search-form">
+<form class="container mt-3" method="post" id="search-form" action="{% url 'search' %}">
   {% csrf_token %}
   <input
     type="text"
     class="form-control"
-    name="search"
+    name="title"
     placeholder="Search tours..."
   />
 
@@ -19,7 +19,7 @@
   >
     <option value="" selected>Loại tour ...</option>
     {% for category in categories %}
-    <option value="{{category.name}}">{{category.name}}</option>
+    <option value="{{category.id}}">{{category.name}}</option>
     {% endfor %}
   </select>
 
@@ -30,18 +30,7 @@
   >
     <option value="" selected>Quốc gia ...</option>
     {% for country in countries %}
-    <option value="{{country.name}}">{{country.name}}</option>
-    {% endfor %}
-  </select>
-
-  <select
-    class="form-select"
-    aria-label="Default select example"
-    name="continent"
-  >
-    <option value="" selected>Châu lục ...</option>
-    {% for continent in continents %}
-    <option value="{{continent.name}}">{{continent.name}}</option>
+    <option value="{{country.id}}">{{country.name}}</option>
     {% endfor %}
   </select>
 
