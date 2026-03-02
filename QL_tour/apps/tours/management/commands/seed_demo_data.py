@@ -19,7 +19,6 @@ class Command(BaseCommand):
             price=2500000,
             duration_days= timezone.now(),
             max_people= 5,
-            location= Point(106.28722169283682 , 17.46565122442901),
             category= cat_adv,
         )
 

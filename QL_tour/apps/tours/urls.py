@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .api import TourMapAPI
+from .servers import TourMapAPI
 from .views import *
 
 urlpatterns = [
