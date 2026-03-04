@@ -1,4 +1,3 @@
-<!doctype html>
 {% extends 'share_layout.html' %} {% load static %} {% block content %}
 <div class="container mt-5">
   <div class="row">
@@ -18,11 +17,7 @@
       <p><strong>Country:</strong> {{ tour.country }}</p>
       <p><strong>Duration:</strong> {{ tour.duration_days }} days</p>
       <p><strong>Quantity:</strong> {{tour.max_people}}</p>
-      <a
-        href="/bookings/create/{{ tour.id }}"
-        class="btn btn-primary btn-sm text-uppercase fw-bolder"
-        >Book Now</a
-      >
+      
     </div>
 
     <div class="col-md-4">
@@ -37,6 +32,41 @@
         "
       ></div>
       <script src="{% static 'js/map.js' %}"></script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <h2 class="mt-5">Detailed Itinerary</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Start Day</th>
+            <th scope="col">End Day</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Activities</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for schedule in schedules %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ schedule.start_day }}</td>
+            <td>{{ schedule.end_day }}</td>
+            <td>{{ schedule.total_slots }}</td>
+            <td>{{ tour.price }}đ</td>
+            <td>
+              <a
+                href="{% url 'booking_create' tour.id %}"
+                class="btn btn-primary btn-sm text-uppercase fw-bolder"
+                >Book</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
     </div>
   </div>
 </div>

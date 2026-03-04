@@ -1,12 +1,15 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework.decorators import api_view
 from .models import Tour
+from .models.tour_schedules import TourSchedule
 from .serializers import TourSerializer
 from rest_framework.response import Response
 
 def tour_detail(request, id):
     tour = get_object_or_404(Tour, pk=id)
-    return render(request, 'detail.html', {'tour': tour})
+    schedules = TourSchedule.objects.filter(tour=tour)
+
+    return render(request, 'detail.html', {'tour': tour, 'schedules': schedules})
 
 @api_view(['GET'])
 def tours(request):

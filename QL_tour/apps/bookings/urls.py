@@ -1,5 +1,6 @@
 from django.urls import path
+from .views import *
 
-# urlpattern = [
-#     path('booking', )
-# ]
+urlpatterns = [
+    path('create/<int:id>/', booking, name='booking_create'),
+]

@@ -4,3 +4,10 @@ __pycache__/
 .vscode
 
 .idea
+
+.DS_Store
+*.log
+*.sqlite3
+media/
+
+.env/

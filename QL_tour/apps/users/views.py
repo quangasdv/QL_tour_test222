@@ -2,9 +2,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from . import forms
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
