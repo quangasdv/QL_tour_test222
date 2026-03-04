@@ -1,2 +1,3 @@
 QL_tour/apps/home/templates/home.html
 QL_tour/apps/tours/templates/index.html
+QL_tour/apps/bookings/templates/booking.html
