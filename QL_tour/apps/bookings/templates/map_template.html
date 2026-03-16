@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Leafmap in Django</title>
+    <style>
+      .map-container {
+        width: 100%;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bản đồ tương tác với Leafmap</h1>
+
+    <div class="map-container">{{ map_html|safe }}</div>
+  </body>
+</html>

@@ -16,10 +16,10 @@ services:
   web:
     env_file: .env
     build:
-      context: ..
-      dockerfile: QL_tour/Dockerfile
-    volumes:
-      - .:/app
+      context: .
+      dockerfile: Dockerfile
+    # volumes:
+    #   - .:/app
     command: python manage.py runserver 0.0.0.0:8000
     ports: ["8000:8000"]
     depends_on:
