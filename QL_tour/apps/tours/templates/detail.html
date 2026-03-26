@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-3">
       <img
-        src="{{ tour.thumbnail.url }}"
+        src="{% if tour.thumbnail %}{{ tour.thumbnail.url }}{% else %}{% static 'images/placeholder-tour.svg' %}{% endif %}"
         alt="{{ tour.title }}"
         class="img-fluid rounded"
       />
@@ -15,7 +15,14 @@
       <p><strong>Price:</strong> {{ tour.price }} Đồng</p>
       <p><strong>Category:</strong> {{ tour.category }}</p>
       <p><strong>Country:</strong> {{ tour.country }}</p>
+      {% if schedules %}
+      <p>
+        <strong>Duration:</strong>
+        {{ schedules.0.start_day|date:"d/m/Y H:i" }} - {{ schedules.0.end_day|date:"d/m/Y H:i" }}
+      </p>
+      {% else %}
       <p><strong>Duration:</strong> {{ tour.duration_days }} days</p>
+      {% endif %}
       <p><strong>Quantity:</strong> {{tour.max_people}}</p>
       
     </div>

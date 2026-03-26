@@ -1,0 +1,28 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block admin_page %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h3 class="mb-1">Xóa {{ config.label }}</h3>
+      <div class="text-muted">Thao tác không thể hoàn tác.</div>
+    </div>
+    <a class="btn btn-outline-secondary" href="{% url 'admin_panel:model_list' model_key=config.key %}">
+      Quay lại
+    </a>
+  </div>
+
+  <div class="card shadow-sm p-3">
+    <div class="alert alert-warning">
+      Bạn có chắc muốn xóa bản ghi này?
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Xóa</button>
+      <a class="btn btn-outline-secondary ms-2" href="{% url 'admin_panel:model_list' model_key=config.key %}">
+        Hủy
+      </a>
+    </form>
+  </div>
+{% endblock admin_page %}
+

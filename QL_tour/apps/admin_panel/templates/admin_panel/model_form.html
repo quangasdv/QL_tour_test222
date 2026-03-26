@@ -1,0 +1,74 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block admin_page %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h3 class="mb-1">
+        {% if mode == 'create' %}Tạo mới{% else %}Cập nhật{% endif %} {{ config.label }}
+      </h3>
+      <div class="text-muted">Biểu mẫu quản trị riêng (UI custom).</div>
+    </div>
+    <a class="btn btn-outline-secondary" href="{% url 'admin_panel:model_list' model_key=config.key %}">
+      Quay lại
+    </a>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="admin-form-card p-4">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        {% for error in form.non_field_errors %}
+          <div>{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% for field in form.visible_fields %}
+      {% if field.name in checkbox_fields %}
+        <div class="form-check mb-3">
+          {{ field }}
+          <label class="form-check-label" for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+        </div>
+        {% if field.errors %}
+          {% for error in field.errors %}
+            <div class="text-danger small mb-2">{{ error }}</div>
+          {% endfor %}
+        {% endif %}
+      {% else %}
+        <div class="mb-3">
+          <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+          {% if field.errors %}
+            {% for error in field.errors %}
+              <div class="text-danger small mb-1">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+
+          {{ field }}
+
+          {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div class="d-flex gap-2 pt-2">
+      <button type="submit" class="btn btn-primary">
+        {% if mode == 'create' %}Lưu{% else %}Cập nhật{% endif %}
+      </button>
+      {% if mode != 'create' %}
+        <a
+          class="btn btn-outline-danger"
+          href="{% url 'admin_panel:model_delete' model_key=config.key pk=obj.id %}"
+        >
+          Xoa
+        </a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock admin_page %}
+

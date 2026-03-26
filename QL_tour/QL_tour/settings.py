@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.bookings',
     'apps.payments',
     'apps.gis_tool',
+    'apps.admin_panel',
 ]
 
 MIDDLEWARE = [

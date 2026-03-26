@@ -3,7 +3,13 @@ const map = L.map("map").setView([10.76, 106.66], 10);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
 const pathSegments = window.location.pathname.split("/");
-const tourId = pathSegments[pathSegments.length - 1];
+// Robustly extract the last numeric segment as tourId (handles trailing slash).
+const numericSegments = pathSegments.filter((s) => /^\d+$/.test(s));
+const tourId = numericSegments.length ? numericSegments[numericSegments.length - 1] : null;
+
+if (!tourId) {
+  console.error("Could not detect tourId from URL:", window.location.pathname);
+}
 
 fetch(`../route-map/${tourId}`)
   .then((res) => res.json())
@@ -37,13 +43,17 @@ fetch(`../route-map/${tourId}`)
         }
 
         if (feature.geometry.type === "LineString") {
+          const distanceKm = feature.properties.distance_km ?? 0;
           layer.bindPopup(`
             <b>${feature.properties.name}</b><br>
-            Distance: ${feature.properties.distance_km.toFixed(2)} km
+            Distance: ${Number(distanceKm).toFixed(2)} km
           `);
         }
       },
     }).addTo(map);
 
-    map.fitBounds(geojsonLayer.getBounds());
+    const bounds = geojsonLayer.getBounds();
+    if (bounds && bounds.isValid && bounds.isValid()) {
+      map.fitBounds(bounds, { padding: [20, 20] });
+    }
   });

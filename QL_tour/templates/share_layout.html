@@ -13,6 +13,8 @@
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'leaflet/leaflet.js' %}"></script>
 
+    {% block extra_css %}{% endblock %}
+
     <title>{% block title %}Tourify{% endblock %}</title>
   </head>
   <body>

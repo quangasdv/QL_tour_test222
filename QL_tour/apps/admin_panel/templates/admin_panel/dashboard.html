@@ -1,0 +1,28 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block admin_page %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h2 class="mb-1">Admin Panel</h2>
+      <div class="text-muted">Quản lý dữ liệu ứng dụng theo mô-đun.</div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    {% for item in menu %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ item.label }}</h5>
+            <div class="mt-auto pt-3">
+              <a class="btn btn-primary w-100" href="{% url 'admin_panel:model_list' model_key=item.key %}">
+                Mở danh sách
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock admin_page %}
+

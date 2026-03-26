@@ -1,0 +1,55 @@
+/* Custom styling for admin_panel UI */
+
+.admin-shell {
+  max-width: 1400px;
+}
+
+.admin-header {
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 14px;
+  height: fit-content;
+}
+
+.admin-menu {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.admin-menu .list-group-item {
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.admin-menu .list-group-item:last-child {
+  border-bottom: 0;
+}
+
+.admin-main {
+  min-height: 60vh;
+}
+
+/* Tables */
+.admin-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.admin-table th {
+  white-space: nowrap;
+}
+
+/* Forms */
+.admin-form-card {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+

@@ -10,15 +10,17 @@ class TourRouteMapSerializer(serializers.Serializer):
     def get_features(self, obj):
         features = []
 
-        features.append({
-            "type": "Feature",
-            "geometry": "" if obj.route == None else json.loads(obj.route.geojson),
-            "properties": {
-                "type": "route",
-                "name": obj.name,
-                "distance_km": obj.distance_km
-            }
-        })
+        # Only include route geometry if it exists; returning "" breaks Leaflet GeoJSON parsing.
+        if obj.route:
+            features.append({
+                "type": "Feature",
+                "geometry": json.loads(obj.route.geojson),
+                "properties": {
+                    "type": "route",
+                    "name": obj.name,
+                    "distance_km": obj.distance_km or 0,
+                }
+            })
 
         for rs in obj.routestop_set.all():
             stop = rs.stop

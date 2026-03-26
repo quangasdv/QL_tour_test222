@@ -19,8 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Customize Django admin branding.
+admin.site.site_header = 'QL Tour - Admin'
+admin.site.site_title = 'QL Tour Admin'
+admin.site.index_title = 'Bảng điều khiển quản trị'
+
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
+    path('admin-panel/', include('apps.admin_panel.urls')),
     path('', include('apps.users.urls')),
     path('', include('apps.home.urls')),
     path('tours/', include('apps.tours.urls')),

@@ -1,0 +1,48 @@
+{% extends 'share_layout.html' %}
+{% load static %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'admin_panel/css/admin_panel.css' %}" />
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid admin-shell mt-3">
+  <div class="admin-header mb-3">
+    <div>
+      <h2 class="mb-0">Admin Panel</h2>
+      <div class="text-muted small">Quản lý dữ liệu hệ thống (UI custom)</div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <aside class="col-md-3 col-lg-2 admin-sidebar">
+      <div class="list-group shadow-sm admin-menu">
+        {% for item in menu %}
+          <a
+            href="{% url 'admin_panel:model_list' model_key=item.key %}"
+            class="list-group-item list-group-item-action {% if current_key == item.key %}active{% endif %}"
+          >
+            {{ item.label }}
+          </a>
+        {% endfor %}
+      </div>
+    </aside>
+
+    <main class="col-md-9 col-lg-10 admin-main">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% block admin_page %}{% endblock admin_page %}
+    </main>
+  </div>
+</div>
+{% endblock content %}
+
